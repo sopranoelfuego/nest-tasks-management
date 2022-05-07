@@ -1,6 +1,12 @@
+import { IsEnum, IsNotEmpty, IsString } from 'class-validator';
 import { taskStatus } from '../tasks.model';
 
 export class SearchFilterTask {
-  search?: string;
-  status?: taskStatus;
+  @IsNotEmpty()
+  @IsString()
+  search: string;
+
+  @IsNotEmpty()
+  @IsEnum(taskStatus)
+  status: taskStatus;
 }
