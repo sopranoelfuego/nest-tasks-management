@@ -8,6 +8,7 @@ services:
     restart: always
     environment:
       POSTGRES_PASSWORD: postgres
-
+      POSTGRES_USER: soprano
+      POSTGRES_DB: taskManagement
     ports:
-      - 8080:8080
+      - 5432:5432
