@@ -1,23 +1,22 @@
 import { Injectable } from '@nestjs/common';
-import { CreateTaskDto, SearchFilterTask } from './dtos/index.dto';
+import { CreateTaskDto, SearchFilterTaskDto, UpdateTaskDto } from './dtos';
+
 import { TaskModel, taskStatus } from './tasks.model';
+import { TaskRepository } from './tasks.repository';
+
 @Injectable()
 export class TasksServices {
   private tasks: TaskModel[] = [];
-  getAll(): TaskModel[] {
-    return [
-      {
-        title: 'new task',
-        description: 'babalao',
-        status: taskStatus.OPEN,
-      },
-    ];
+  getAll(): Promise<TaskModel[]> {
+    return TaskRepository.find();
   }
-  getFilterSearchTasks(searchFilter: SearchFilterTask): TaskModel[] {
+  async getFilterSearchTasks(
+    searchFilter: SearchFilterTaskDto,
+  ): Promise<TaskModel[]> {
     let tasks: TaskModel[] = [];
     const { status, search } = searchFilter;
     //   case of no search or filter value provided we have to return all tasks
-    tasks = this.getAll();
+    tasks = await this.getAll();
     // case of status as keyWord
     if (status) {
       tasks = tasks.filter((t) => t.status === status);
@@ -33,11 +32,10 @@ export class TasksServices {
     }
     return tasks;
   }
-  create(createTaskDto: CreateTaskDto): TaskModel {
-    return {
-      title: 'new task',
-      description: 'description from post task',
-      status: taskStatus.OPEN,
-    };
+  async create(createTaskDto: CreateTaskDto): Promise<TaskModel> {
+    const task = await TaskRepository.create(createTaskDto);
+    return task;
   }
+
+  // async update(updateTaskDto: UpdateTaskDto): Promise<TaskModel> {}
 }
