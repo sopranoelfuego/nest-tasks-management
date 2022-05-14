@@ -13,7 +13,7 @@ export default class tasksController {
     if (Object.keys(searchFilter).length) {
       return this.tasksService.getFilterSearchTasks(searchFilter);
     }
-    return this.tasksService.getAll();
+    return this.tasksService.getFilterSearchTasks();
   }
   @Post()
   async create(@Body() createTaskDto: CreateTaskDto): Promise<TaskModel> {
