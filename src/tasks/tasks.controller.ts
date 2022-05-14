@@ -1,7 +1,6 @@
-import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { CreateTaskDto, SearchFilterTaskDto } from './dtos';
 import { TaskModel } from './tasks.model';
-import { TaskRepository } from './tasks.repository';
 import { TasksServices } from './tasks.services';
 @Controller('tasks')
 export default class tasksController {
@@ -15,6 +14,11 @@ export default class tasksController {
     }
     return this.tasksService.getFilterSearchTasks();
   }
+  @Get('/:id')
+  async getTaskById(@Param('id') id: string): Promise<TaskModel> {
+    return this.tasksService.getById(id);
+  }
+
   @Post()
   async create(@Body() createTaskDto: CreateTaskDto): Promise<TaskModel> {
     return this.tasksService.create(createTaskDto);
