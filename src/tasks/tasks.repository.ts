@@ -1,4 +1,4 @@
-import { dataSource } from 'src/config/db';
+import { dataSource } from '../config';
 import { Repository } from 'typeorm';
 import { CreateTaskDto } from './dtos/create-task.dto';
 import { Task } from './tasks.entity';

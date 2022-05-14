@@ -1,22 +1,8 @@
-import { Task } from 'src/tasks/tasks.entity';
-import { DataSource } from 'typeorm';
-
-export const dataSource = new DataSource({
-  type: 'postgres',
-  host: 'localhost',
-  port: 5432,
-  username: 'soprano',
-  password: 'postgres',
-  database: 'taskManagement',
-  entities: [Task],
-  synchronize: true,
+export default () => ({
+  type: process.env.TYPE,
+  host: process.env.HOST,
+  port: process.env.PORT,
+  username: process.env.USERNAME,
+  password: process.env.PASSWORD,
+  database: process.env.DATABASE,
 });
-
-dataSource
-  .initialize()
-  .then(() => {
-    console.log('Data Source has been initialized!');
-  })
-  .catch((err) => {
-    console.error('Error during Data Source initialization', err);
-  });

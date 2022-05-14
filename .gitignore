@@ -84,7 +84,7 @@ bld/
 # MSTest test Results
 [Tt]est[Rr]esult*/
 [Bb]uild[Ll]og.*
-
+custom-type.d.ts
 # NUNIT
 *.VisualState.xml
 TestResult.xml
