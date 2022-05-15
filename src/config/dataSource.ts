@@ -1,6 +1,7 @@
 import { Task } from 'src/tasks/tasks.entity';
 import { DataSource } from 'typeorm';
 import * as config from 'config';
+import { User } from 'src/auth/user.entity';
 
 export const dataSource = new DataSource({
   type: process.env.TYPE,
@@ -9,7 +10,7 @@ export const dataSource = new DataSource({
   username: process.env.USERNAME,
   password: process.env.PASSWORD,
   database: process.env.DATABASE,
-  entities: [Task],
+  entities: [Task, User],
   synchronize: true,
 });
 

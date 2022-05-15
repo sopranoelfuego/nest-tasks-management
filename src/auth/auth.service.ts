@@ -5,7 +5,7 @@ import { UserRepository } from './user.repository';
 
 @Injectable()
 export class AuthService {
-  async create(createUserDto: CreateUserDto): Promise<User> {
+  async signup(createUserDto: CreateUserDto): Promise<void> {
     return UserRepository.create(createUserDto);
   }
   async getAll(): Promise<User[]> {
