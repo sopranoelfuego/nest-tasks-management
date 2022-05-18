@@ -20,7 +20,7 @@ export class AuthService {
   async signin(authUserDto: AuthUserDto): Promise<string> {
     const { username, password } = authUserDto;
     const user = await UserRepository.findOne({ where: { username } });
-    if (user && (await bcrypt.compare(user.password, password))) {
+    if (user && (await bcrypt.compare(password, user.password))) {
       return 'logged successful..';
     } else throw new UnauthorizedException('error bad credentiels....');
   }
