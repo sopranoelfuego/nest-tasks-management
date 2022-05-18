@@ -3,9 +3,9 @@ import {
   InternalServerErrorException,
 } from '@nestjs/common';
 import { dataSource } from 'src/config';
-import { Task } from 'src/tasks/tasks.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './user.entity';
+import * as bcrypt from 'bcrypt';
 
 export const UserRepository = dataSource.getRepository(User).extend({
   create: async (createUserDto: CreateUserDto): Promise<void> => {
@@ -13,7 +13,8 @@ export const UserRepository = dataSource.getRepository(User).extend({
     try {
       const user = new User();
       user.username = username;
-      user.password = password;
+      const salt = await bcrypt.genSalt();
+      user.password = await bcrypt.hash(password, salt);
       await user.save();
     } catch (error) {
       if (error.code === '23505')
@@ -27,6 +28,14 @@ export const UserRepository = dataSource.getRepository(User).extend({
       return tasks;
     } catch (error) {
       throw new Error(error.code);
+    }
+  },
+  deleteAll: async (): Promise<string> => {
+    try {
+      await User.delete({});
+      return 'successfull deleted';
+    } catch (error) {
+      throw error;
     }
   },
 });

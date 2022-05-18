@@ -8,12 +8,16 @@ import { SearchFilterTaskDto } from './dtos';
 export const TaskRepository = dataSource.getRepository(Task).extend({
   create: async (createTaskDto: CreateTaskDto): Promise<Task> => {
     const { title, description } = createTaskDto;
-    const task = new Task();
-    task.title = title;
-    task.description = description;
-    task.status = taskStatus.OPEN;
-    await task.save();
-    return task;
+    try {
+      const task = new Task();
+      task.title = title;
+      task.description = description;
+      task.status = taskStatus.OPEN;
+      await task.save();
+      return task;
+    } catch (error) {
+      throw new error();
+    }
   },
   find: async (searchFilterTaskDto?: SearchFilterTaskDto): Promise<Task[]> => {
     const { search, status } = searchFilterTaskDto;
