@@ -9,4 +9,5 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
   await app.listen(3000);
 }
+// @nestjs/passport @nestjs/jwt passport passport-jwt
 bootstrap();

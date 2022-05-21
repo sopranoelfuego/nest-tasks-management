@@ -1,8 +1,18 @@
-import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { CreateTaskDto, SearchFilterTaskDto } from './dtos';
 import { TaskModel } from './tasks.model';
 import { TasksServices } from './tasks.services';
 @Controller('tasks')
+@UseGuards(AuthGuard())
 export default class tasksController {
   constructor(private tasksService: TasksServices) {}
   @Get()

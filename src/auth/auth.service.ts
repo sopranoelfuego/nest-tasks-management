@@ -5,9 +5,12 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './user.entity';
 import { UserRepository } from './user.repository';
 import * as bcrypt from 'bcrypt';
+import { JwtService } from '@nestjs/jwt';
+import { JwtPayload } from './jwt-payload-interface';
 
 @Injectable()
 export class AuthService {
+  constructor(private jwtService: JwtService) {}
   async signup(createUserDto: CreateUserDto): Promise<void> {
     return UserRepository.create(createUserDto);
   }
@@ -17,11 +20,13 @@ export class AuthService {
   async deleteAll() {
     return UserRepository.deleteAll();
   }
-  async signin(authUserDto: AuthUserDto): Promise<string> {
+  async signin(authUserDto: AuthUserDto): Promise<{ accessToken: string }> {
     const { username, password } = authUserDto;
     const user = await UserRepository.findOne({ where: { username } });
     if (user && (await bcrypt.compare(password, user.password))) {
-      return 'logged successful..';
-    } else throw new UnauthorizedException('error bad credentiels....');
+      const jwtPayload: JwtPayload = { username };
+      const accessToken = await this.jwtService.sign(jwtPayload);
+      return { accessToken };
+    } else throw new UnauthorizedException('wrong usernaname or password....');
   }
 }

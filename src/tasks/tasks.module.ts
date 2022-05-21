@@ -1,12 +1,10 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { EntitySchema } from 'typeorm';
+import { AuthModule } from 'src/auth/auth.module';
 import tasksController from './tasks.controller';
-import { Task } from './tasks.entity';
-import { TaskRepository } from './tasks.repository';
 import { TasksServices } from './tasks.services';
 
 @Module({
+  imports: [AuthModule],
   controllers: [tasksController],
   providers: [TasksServices],
 })

@@ -1,6 +1,6 @@
 import { Task } from 'src/tasks/tasks.entity';
 import { DataSource } from 'typeorm';
-import * as config from 'config';
+
 import { User } from 'src/auth/user.entity';
 
 export const dataSource = new DataSource({

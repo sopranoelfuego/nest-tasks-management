@@ -13,8 +13,7 @@ export class CreateUserDto {
   // There is no length validation (min, max) in this regex!
   @Matches(/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/, {
     message:
-      'Passwords will contain at least 1 upper case letter,\
-    Passwords will contain at least 1 lower case letter\
+      'Passwords will contain at least 1 upper case letter,at least 1 lower case letter and at least 1 number\
     ',
   })
   password: string;
