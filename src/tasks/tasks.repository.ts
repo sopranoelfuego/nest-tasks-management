@@ -21,16 +21,20 @@ export const TaskRepository = dataSource.getRepository(Task).extend({
       throw new error();
     }
   },
-  find: async (searchFilterTaskDto?: SearchFilterTaskDto): Promise<Task[]> => {
+  find: async (
+    searchFilterTaskDto: SearchFilterTaskDto,
+    user: User,
+  ): Promise<Task[]> => {
     const { search, status } = searchFilterTaskDto;
-    const query = Task.createQueryBuilder('task');
     try {
+      const query = Task.createQueryBuilder('task');
+      query.where({ user });
       if (status) {
         query.andWhere('task.status= :status', { status });
       }
       if (search) {
         query.andWhere(
-          'LOWER(task.title) LIKE :search OR  LOWER(task.description) LIKE :search',
+          '(LOWER(task.title) LIKE :search OR  LOWER(task.description) LIKE :search)',
           { search: `%${search.toLocaleLowerCase()}%` },
         );
       }

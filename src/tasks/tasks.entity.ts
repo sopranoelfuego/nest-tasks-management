@@ -1,3 +1,4 @@
+import { Exclude } from 'class-transformer';
 import { User } from 'src/auth/user.entity';
 import {
   BaseEntity,
@@ -19,5 +20,6 @@ export class Task extends BaseEntity {
   @Column()
   status: taskStatus;
   @ManyToOne((type) => User, (user) => user.tasks, { eager: false })
+  @Exclude({ toPlainOnly: true })
   user: User;
 }

@@ -10,11 +10,12 @@ export class TasksServices {
   private tasks: TaskModel[] = [];
 
   async getFilterSearchTasks(
-    searchFilterTaskDto?: SearchFilterTaskDto,
+    searchFilterTaskDto: SearchFilterTaskDto,
+    user: User,
   ): Promise<TaskModel[]> {
     if (!searchFilterTaskDto)
       return TaskRepository.createQueryBuilder('tasks').getMany();
-    return TaskRepository.find(searchFilterTaskDto);
+    return TaskRepository.find(searchFilterTaskDto, user);
   }
   async create(createTaskDto: CreateTaskDto, user: User): Promise<TaskModel> {
     const task = await TaskRepository.create(createTaskDto, user);

@@ -20,11 +20,9 @@ export default class tasksController {
   @Get()
   async getAll(
     @Query() searchFilter: SearchFilterTaskDto,
+    @GetUser() user: User,
   ): Promise<TaskModel[]> {
-    if (Object.keys(searchFilter).length) {
-      return this.tasksService.getFilterSearchTasks(searchFilter);
-    }
-    return this.tasksService.getFilterSearchTasks();
+    return this.tasksService.getFilterSearchTasks(searchFilter, user);
   }
   @Get('/:id')
   async getTaskById(@Param('id') id: string): Promise<TaskModel> {
