@@ -37,10 +37,10 @@ export class AuthController {
 
   // Testing
 
-  @Post('/hello')
-  @UseGuards(AuthGuard())
-  hello(@Req() req) {
-    console.log('req:', req);
-    return 'hello';
-  }
+  // @Post('/hello')
+  // @UseGuards(AuthGuard())
+  // hello(@Req() req) {
+  //   console.log('req:', req);
+  //   return 'hello';
+  // }
 }
