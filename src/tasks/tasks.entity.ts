@@ -22,4 +22,6 @@ export class Task extends BaseEntity {
   @ManyToOne((type) => User, (user) => user.tasks, { eager: false })
   @Exclude({ toPlainOnly: true })
   user: User;
+  @Column()
+  userId: string;
 }

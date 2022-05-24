@@ -1,5 +1,4 @@
 import { dataSource } from '../config';
-import { Repository } from 'typeorm';
 import { CreateTaskDto } from './dtos/create-task.dto';
 import { Task } from './tasks.entity';
 import { taskStatus } from './tasks.model';
@@ -15,6 +14,7 @@ export const TaskRepository = dataSource.getRepository(Task).extend({
       task.description = description;
       task.status = taskStatus.OPEN;
       task.user = user;
+      task.userId = user.id;
       await task.save();
       return task;
     } catch (error) {
@@ -30,7 +30,7 @@ export const TaskRepository = dataSource.getRepository(Task).extend({
       const query = Task.createQueryBuilder('task');
       query.where({ user });
       if (status) {
-        query.andWhere('task.status= :status', { status });
+        query.andWhere('task.status = :status', { status });
       }
       if (search) {
         query.andWhere(
