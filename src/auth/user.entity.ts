@@ -1,4 +1,4 @@
-import { Task } from 'src/tasks/tasks.entity';
+import { Task } from '../tasks/tasks.entity';
 import {
   BaseEntity,
   Column,

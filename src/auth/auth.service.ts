@@ -1,5 +1,5 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { TaskModel } from 'src/tasks/tasks.model';
+import { TaskModel } from '../tasks/tasks.model';
 import { AuthUserDto } from './dto/auth-user.dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './user.entity';

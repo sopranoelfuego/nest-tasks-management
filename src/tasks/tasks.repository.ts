@@ -3,7 +3,7 @@ import { CreateTaskDto } from './dtos/create-task.dto';
 import { Task } from './tasks.entity';
 import { taskStatus } from './tasks.model';
 import { SearchFilterTaskDto } from './dtos';
-import { User } from 'src/auth/user.entity';
+import { User } from '../auth/user.entity';
 
 export const TaskRepository = dataSource.getRepository(Task).extend({
   create: async (createTaskDto: CreateTaskDto, user: User): Promise<Task> => {

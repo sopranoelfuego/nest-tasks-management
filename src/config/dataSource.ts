@@ -1,7 +1,7 @@
-import { Task } from 'src/tasks/tasks.entity';
+import { Task } from '../tasks/tasks.entity';
 import { DataSource } from 'typeorm';
 
-import { User } from 'src/auth/user.entity';
+import { User } from '../auth/user.entity';
 
 export const dataSource = new DataSource({
   type: process.env.TYPE,

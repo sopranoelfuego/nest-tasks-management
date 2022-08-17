@@ -2,7 +2,7 @@ import {
   ConflictException,
   InternalServerErrorException,
 } from '@nestjs/common';
-import { dataSource } from 'src/config';
+import { dataSource } from '../config';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './user.entity';
 import * as bcrypt from 'bcrypt';

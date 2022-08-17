@@ -10,20 +10,27 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { GetUser } from 'src/auth/get-user-decorator';
-import { User } from 'src/auth/user.entity';
+import { GetUser } from '../auth/get-user-decorator';
+import { User } from '../auth/user.entity';
 import { CreateTaskDto, SearchFilterTaskDto, UpdateTaskDto } from './dtos';
 import { TaskModel } from './tasks.model';
 import { TasksServices } from './tasks.services';
+import { Logger } from '@nestjs/common';
 @Controller('tasks')
 @UseGuards(AuthGuard())
 export default class tasksController {
+  private Logger = new Logger();
   constructor(private tasksService: TasksServices) {}
   @Get()
   async getAll(
     @Query() searchFilter: SearchFilterTaskDto,
     @GetUser() user: User,
   ): Promise<TaskModel[]> {
+    this.Logger.verbose(
+      `user ${
+        user.username
+      } is retrievings tasks and filters are ${JSON.stringify(searchFilter)}`,
+    );
     return this.tasksService.getFilterSearchTasks(searchFilter, user);
   }
   @Get('/:id')
